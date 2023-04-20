@@ -1,9 +1,11 @@
-import Scores from "./scores";
+import Scores from "./header/scores";
+import AppName from "./header/name";
+import myImage from './header/151.png'
 
 function Header(props) {
     return (
         <div className="header">
-            <h1>Pokemon Memory Game</h1>
+            <AppName />
             <Scores score={props.score} highScore={props.highScore} />
         </div>
     );
