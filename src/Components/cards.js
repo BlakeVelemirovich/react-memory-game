@@ -54,23 +54,41 @@ function Card(props) {
       else clickedCard.clicks = 1;
       //Check if loss or if we should continue the game by updating the score
       let lives = 1;
-      if (lives < clickedCard.clicks) handleLoss();
+      if (lives < clickedCard.clicks) {
+        handleLoss();
+        return newCards;
+      }
       else {
-        props.updateScore();
+        props.updateScore.increaseScores();
       }
       return newCards;
     });
+    setCards(shuffle());
   };
-
+  //If loss, change useEffect dependency to true so we can call a new set of calls from the Pokeapi
   const handleLoss = () => {
+    //Clear random number array so we can reuse pokemon from the last round
+    getNum.generatedNumbers = [];
+
     setGetNewCards(!getNewCards);
+    props.updateScore.decreaseScore();
   }
+
+  const shuffle = () => {
+    let shuffledArray = [...cards];
+    for (let i = cards.length - 2; i > 0; i--) {
+      const randomNum = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[randomNum]] = [shuffledArray[randomNum], shuffledArray[i]];
+    }
+    return shuffledArray;
+  }
+
   //Card rendering
   return (
     <div className="Card">
       {cards.map((card, index) => (
         <div key={index}>
-          <img src={card.sprites.front_default} alt={card.name} onClick={() => handlePoints(index)}/>
+          <img src={card.sprites.other['official-artwork'].front_default} alt={card.name} onClick={() => handlePoints(index)}/>
           <p>{card.name}</p>
         </div>
       ))}
