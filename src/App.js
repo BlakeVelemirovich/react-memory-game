@@ -1,5 +1,6 @@
 import './App.scss';
 import Card from './Components/cards';
+import Header from './Components/header';
 import { useState } from 'react';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header score={score} highScore={highScore}/>
       <Card updateScore={updateScore}/>
       <p>{score}</p>
     </div>
