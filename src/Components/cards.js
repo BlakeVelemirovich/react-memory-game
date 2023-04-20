@@ -1,21 +1,25 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-function Card() {
+function Card(props) {
   const [cards, setCards] = useState([]);
+  const [getNewCards, setGetNewCards] = useState(false);
   //Handle generation of new pokemon cards by fetching data with the pokemon api
   useEffect(() => {
-    const fetchData = async () => {
-      const newCards = [];
-      const numOfCards = 12;
-      for (let i = 0; i < numOfCards; i++) {
-        const newCard = await getData();
-        newCards.push(newCard);
-      }
-      setCards(newCards);
-    };
     fetchData();
-  }, []);
+
+    return setGetNewCards(false);
+  }, [getNewCards]);
+
+  const fetchData = async () => {
+    const newCards = [];
+    const numOfCards = 12;
+    for (let i = 0; i < numOfCards; i++) {
+      const newCard = await getData();
+      newCards.push(newCard);
+    }
+    setCards(newCards);
+  };
   //Function for generating a random number between 1 and 151 (the first generation pokemon) to randomly select Pokemon during data fetch
   const getNum = () => {
     const min = 1;
@@ -41,16 +45,26 @@ function Card() {
       console.log(e);
     }
   };
-  //Game points logic, when an image is clicked on we will keep track of how many times each image has been clicked inside the card's object
+  //Game points logic, when an image is clicked on we will keep track of how many times each image has been clicked inside the cards object
   const handlePoints = (cardIndex) => {
     setCards(prevCards => {
       const newCards = [...prevCards];
       const clickedCard = newCards[cardIndex];
       if (clickedCard.clicks) clickedCard.clicks += 1;
       else clickedCard.clicks = 1;
+      //Check if loss or if we should continue the game by updating the score
+      let lives = 1;
+      if (lives < clickedCard.clicks) handleLoss();
+      else {
+        props.updateScore();
+      }
       return newCards;
     });
   };
+
+  const handleLoss = () => {
+    setGetNewCards(!getNewCards);
+  }
   //Card rendering
   return (
     <div className="Card">
