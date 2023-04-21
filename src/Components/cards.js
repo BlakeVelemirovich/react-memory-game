@@ -3,6 +3,8 @@ import { useState } from "react";
 
 function Card(props) {
   const [cards, setCards] = useState([]);
+  const [howManyCards, setHowManyCards] = useState(4);
+  const [howManyClicks, setHowManyClicks] = useState(1);
   const [getNewCards, setGetNewCards] = useState(false);
   const [isBlurred, setIsBlurred] = useState(false);
   //Handle generation of new pokemon cards by fetching data with the pokemon api
@@ -14,8 +16,7 @@ function Card(props) {
 
   const fetchData = async () => {
     const newCards = [];
-    const numOfCards = 12;
-    for (let i = 0; i < numOfCards; i++) {
+    for (let i = 0; i < howManyCards; i++) {
       const newCard = await getData();
       newCards.push(newCard);
     }
@@ -61,6 +62,14 @@ function Card(props) {
       }
       else {
         props.updateScore.increaseScores();
+        setHowManyClicks(prevClicks => prevClicks + 1);
+        console.log(howManyClicks)
+        if (howManyClicks === howManyCards) {
+          setHowManyCards(prevCards => prevCards + 2);
+          console.log(howManyCards);
+          setHowManyClicks(1);
+          setGetNewCards(!getNewCards);
+        }
       }
       return newCards;
     });
@@ -72,6 +81,7 @@ function Card(props) {
     getNum.generatedNumbers = [];
 
     setGetNewCards(!getNewCards);
+    setHowManyClicks(0);
     props.updateScore.decreaseScore();
   }
 
