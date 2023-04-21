@@ -1,0 +1,32 @@
+.header {
+    display: flex;
+    background-color: $background-colour;
+    justify-content: space-between;
+
+    .app-name {
+        display: flex;
+        align-items: center;
+        padding: 0.1rem;
+        padding-left: 0.5rem;
+        font-weight: 300;
+        
+        img {
+            height: 3.5rem;
+            width: 3.5rem;
+            padding-right: 0.7rem;
+        }        
+    }
+
+    .scores {
+        display: flex;
+        font-size: 1rem;
+        align-items: center;
+        padding-right: 2rem;
+
+        .score {
+            border-right: 4px solid $font-colour;
+            padding-right: 1rem;
+            margin-right: 1rem;
+        }
+    }
+}
