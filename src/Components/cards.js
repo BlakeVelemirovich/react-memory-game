@@ -92,8 +92,8 @@ function Card(props) {
   return (
     <div className="Card">
       {cards.map((card, index) => (
-        <div key={index}>
-          <img src={card.sprites.other['official-artwork'].front_default} alt={card.name} onClick={() =>{handlePoints(index); handleBlurr();}} className={isBlurred ? "blurred" : ''}/>
+        <div key={index} onClick={() => handleBlurr()} className={isBlurred ? "blurred" : ''}>
+          <img src={card.sprites.other['official-artwork'].front_default} alt={card.name} onClick={() => handlePoints(index)}/>
           <p>{card.name}</p>
         </div>
       ))}
