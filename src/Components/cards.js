@@ -76,7 +76,7 @@ function Card(props) {
 
   const shuffle = () => {
     let shuffledArray = [...cards];
-    for (let i = cards.length - 2; i > 0; i--) {
+    for (let i = cards.length - 1; i > 0; i--) {
       const randomNum = Math.floor(Math.random() * (i + 1));
       [shuffledArray[i], shuffledArray[randomNum]] = [shuffledArray[randomNum], shuffledArray[i]];
     }
