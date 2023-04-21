@@ -5,6 +5,7 @@ function Card(props) {
   const [cards, setCards] = useState([]);
   const [howManyCards, setHowManyCards] = useState(4);
   const [howManyClicks, setHowManyClicks] = useState(1);
+  const [level, setLevel] = useState(1);
   const [getNewCards, setGetNewCards] = useState(false);
   const [isBlurred, setIsBlurred] = useState(false);
   //Handle generation of new pokemon cards by fetching data with the pokemon api
@@ -68,6 +69,7 @@ function Card(props) {
           setHowManyCards(prevCards => prevCards + 2);
           console.log(howManyCards);
           setHowManyClicks(1);
+          setLevel(prevLevel => prevLevel + 1);
           setGetNewCards(!getNewCards);
         }
       }
@@ -101,12 +103,15 @@ function Card(props) {
   //Card rendering
   return (
     <div className="Card">
-      {cards.map((card, index) => (
-        <div key={index} onClick={() => handleBlurr()} className={isBlurred ? "blurred" : ''}>
-          <img src={card.sprites.other['official-artwork'].front_default} alt={card.name} onClick={() => handlePoints(index)}/>
-          <p>{card.name}</p>
-        </div>
-      ))}
+      <p className="level">You are on level: {level}!</p>
+      <div className="cards">
+        {cards.map((card, index) => (
+          <div key={index} onClick={() => handleBlurr()} className={isBlurred ? "blurred" : ''}>
+            <img src={card.sprites.other['official-artwork'].front_default} alt={card.name} onClick={() => handlePoints(index)}/>
+            <p>{card.name}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
