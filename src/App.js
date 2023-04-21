@@ -22,7 +22,6 @@ function App() {
     <div className="App">
       <Header score={score} highScore={highScore}/>
       <Card updateScore={updateScore}/>
-      <p>{score}</p>
     </div>
   );
 }

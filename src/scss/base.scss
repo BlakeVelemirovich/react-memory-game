@@ -1,7 +1,8 @@
-$card-colour: #0e8880;
+$card-colour: #9d0208;
 $font-colour: #C5C6C7;
-$background-colour: #1F2833;
-$header-colour: #0B0C10;
+$border-colour: #6a040f;
+$background-colour: #370617;
+$header-colour: #03071e;
 
 html {
     font-size: 62.5%;
@@ -31,4 +32,5 @@ body {
     color: $font-colour;
     font-size: 1.6rem;
     font-family: 'Press Start 2P', sans-serif;
+    background-color: $background-colour;
 }
