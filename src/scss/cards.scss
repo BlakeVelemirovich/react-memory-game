@@ -1,6 +1,11 @@
 .Card {
     text-align: center;
     margin: 2rem;
+
+    .level-up {
+        animation: shrink-grow 2s ease forwards;
+        font-weight: 500;
+    }
     
     .cards {
         display: flex;

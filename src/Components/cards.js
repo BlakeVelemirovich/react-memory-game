@@ -8,6 +8,7 @@ function Card(props) {
   const [level, setLevel] = useState(1);
   const [getNewCards, setGetNewCards] = useState(false);
   const [isBlurred, setIsBlurred] = useState(false);
+  const [levelUp, setLevelUp] = useState(false);
   //Handle generation of new pokemon cards by fetching data with the pokemon api
   useEffect(() => {
     fetchData();
@@ -67,10 +68,10 @@ function Card(props) {
         console.log(howManyClicks)
         if (howManyClicks === howManyCards) {
           setHowManyCards(prevCards => prevCards + 2);
-          console.log(howManyCards);
           setHowManyClicks(1);
           setLevel(prevLevel => prevLevel + 1);
           setGetNewCards(!getNewCards);
+          handleLevelUp();
         }
       }
       return newCards;
@@ -83,7 +84,9 @@ function Card(props) {
     getNum.generatedNumbers = [];
 
     setGetNewCards(!getNewCards);
-    setHowManyClicks(0);
+    setHowManyClicks(1);
+    setHowManyCards(4);
+    setLevel(1);
     props.updateScore.decreaseScore();
   }
 
@@ -100,10 +103,18 @@ function Card(props) {
     setIsBlurred(!isBlurred);
     setTimeout(() => setIsBlurred(false), 500); 
   }
+
+  const handleLevelUp = () => {
+    setLevelUp(true);
+    setInterval(() => {
+      setLevelUp(false);
+    }, 6000);
+  }
   //Card rendering
   return (
     <div className="Card">
       <p className="level">You are on level: {level}!</p>
+      {levelUp && <p className="level-up">Level Up!</p>}
       <div className="cards">
         {cards.map((card, index) => (
           <div key={index} onClick={() => handleBlurr()} className={isBlurred ? "blurred" : ''}>
